@@ -1,0 +1,1 @@
+Backend Secure API for demonstrating Authentication and Authorization using Spring Security and H2 Embedded Database
