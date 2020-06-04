@@ -20,7 +20,7 @@ public class AppController {
 		return service.saveUser(user);
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/authenticate")
 	public String login(@RequestBody UserDTO user) {
 		return "LoggedIn";
 	}
