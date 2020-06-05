@@ -5,6 +5,7 @@ import org.security.app.UserDTO;
 import org.security.app.entity.UserEntity;
 import org.security.app.entity.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,12 +17,15 @@ public class AppService {
 	@Autowired
 	ModelMapper modelMapper;
 
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	
 	public UserDTO saveUser(UserDTO user) throws Exception {
 		if(checkUserExists(user.getEmailId())) {
 			throw new Exception();
-		}		
+		}
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		UserEntity entity = repository.save(mapDTOtoEntity(user));
 		return mapEntityToDTO(entity);
 	}
