@@ -23,16 +23,16 @@ public class UserService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String emailId) throws UsernameNotFoundException {
-		UserEntity userEntity = repository.findByEmailId(emailId);
+		UserEntity userEntity = repository.findByEmail(emailId);
 		if(userEntity==null) {
 			throw new UsernameNotFoundException("Username Not Found");
 		}
-		return new User(userEntity.getEmailId(), userEntity.getPassword(), new ArrayList<>());
+		return new User(userEntity.getEmail(), userEntity.getPassword(), new ArrayList<>());
 	}
 
 
 	public UserDTO getUserDetailsByEmail(String emailId) throws UsernameNotFoundException {
-		UserEntity userEntity = repository.findByEmailId(emailId);
+		UserEntity userEntity = repository.findByEmail(emailId);
 		if(userEntity==null) {
 			throw new UsernameNotFoundException("Username Not Found");
 		}

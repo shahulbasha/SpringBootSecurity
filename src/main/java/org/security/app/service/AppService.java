@@ -1,12 +1,19 @@
 package org.security.app.service;
 
+import java.sql.Date;
+
 import org.modelmapper.ModelMapper;
 import org.security.app.UserDTO;
 import org.security.app.entity.UserEntity;
 import org.security.app.entity.UserRepository;
+import org.security.app.model.AuthenticationResponseModel;
+import org.security.app.model.SignUpRequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class AppService {
@@ -21,27 +28,30 @@ public class AppService {
 	BCryptPasswordEncoder passwordEncoder;
 
 	
-	public UserDTO saveUser(UserDTO user) throws Exception {
-		if(checkUserExists(user.getEmailId())) {
-			throw new Exception();
+	public AuthenticationResponseModel saveUser(SignUpRequestModel signUpModel) throws Exception {
+		if(checkUserExists(signUpModel.getEmail())) {
+			throw new Exception("User Already Exists");
 		}
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		UserEntity entity = repository.save(mapDTOtoEntity(user));
+		signUpModel.setPassword(passwordEncoder.encode(signUpModel.getPassword()));
+		UserEntity entity = repository.save(mapToEntity(signUpModel));
+		
+ 
+        
 		return mapEntityToDTO(entity);
 	}
 	
 	private boolean checkUserExists(String emailId) {
-		if(repository.findByEmailId(emailId)!=null) {
+		if(repository.findByEmail(emailId)!=null) {
 			return true;
 		}
 		return false;
 	}
 	
-	private UserEntity mapDTOtoEntity(UserDTO dto) {
-		return modelMapper.map(dto, UserEntity.class);
+	private UserEntity mapToEntity(SignUpRequestModel signUpModel) {
+		return modelMapper.map(signUpModel, UserEntity.class);
 	}
 	
-	private UserDTO mapEntityToDTO(UserEntity entity) {
-		return modelMapper.map(entity, UserDTO.class);
+	private AuthenticationResponseModel mapEntityToDTO(UserEntity entity) {
+		return modelMapper.map(entity, AuthenticationResponseModel.class);
 	}
 }

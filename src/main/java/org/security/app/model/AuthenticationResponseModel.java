@@ -1,11 +1,10 @@
-package org.security.app;
+package org.security.app.model;
 
-public class UserDTO {
+public class AuthenticationResponseModel {
 
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
 
 	public String getFirstName() {
 		return firstName;
@@ -25,13 +24,6 @@ public class UserDTO {
 	public void setEmail(String emailId) {
 		this.email = emailId;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	
 	
 }
