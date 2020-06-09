@@ -1,9 +1,6 @@
 package org.security.app.service;
 
-import java.sql.Date;
-
 import org.modelmapper.ModelMapper;
-import org.security.app.UserDTO;
 import org.security.app.entity.UserEntity;
 import org.security.app.entity.UserRepository;
 import org.security.app.model.AuthenticationResponseModel;
@@ -11,9 +8,6 @@ import org.security.app.model.SignUpRequestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class AppService {

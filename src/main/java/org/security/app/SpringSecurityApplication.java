@@ -15,7 +15,7 @@ public class SpringSecurityApplication {
 	}
 
 	@Bean
-	public ModelMapper getModelMapper() {
+	public ModelMapper modelMapper() {
 		ModelMapper mapper =new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		return mapper;
@@ -25,4 +25,6 @@ public class SpringSecurityApplication {
     public BCryptPasswordEncoder passwordEncoder() {
     	return new BCryptPasswordEncoder();
     }
+    
+
 }

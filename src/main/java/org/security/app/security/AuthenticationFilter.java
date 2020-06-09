@@ -1,7 +1,6 @@
 package org.security.app.security;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
@@ -23,21 +22,22 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 
+
 	UserService usersService;
-	@Autowired
 	ModelMapper mapper;
-	public AuthenticationFilter(UserService usersService,AuthenticationManager authManager) {
+	
+	public AuthenticationFilter(UserService usersService,AuthenticationManager authManager,ModelMapper mapper) {
 		super();
 		this.usersService = usersService;
+		this.mapper=mapper;
 		super.setAuthenticationManager(authManager);
 	}
 
@@ -47,7 +47,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 			throws AuthenticationException {
 		try {
 			LoginRequestModel loginModel = new ObjectMapper().readValue(request.getInputStream(), LoginRequestModel.class);
-			return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginModel.getEmailId(), loginModel.getPassword(), new ArrayList<>()));
+			return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginModel.getEmail(), loginModel.getPassword(), new ArrayList<>()));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		} 

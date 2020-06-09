@@ -2,13 +2,13 @@ package org.security.app.model;
 
 public class LoginRequestModel {
 
-	private String emailId;
+	private String email;
 	private String password;
-	public String getEmailId() {
-		return emailId;
+	public String getEmail() {
+		return email;
 	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setEmail(String emailId) {
+		this.email = emailId;
 	}
 	public String getPassword() {
 		return password;
