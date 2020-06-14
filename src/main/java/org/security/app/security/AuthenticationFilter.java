@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -64,6 +65,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
     	res.setContentType(MediaType.APPLICATION_JSON_VALUE);
     	res.setCharacterEncoding("UTF-8");
         res.addHeader("token", token); 
+
     }
 
 }
