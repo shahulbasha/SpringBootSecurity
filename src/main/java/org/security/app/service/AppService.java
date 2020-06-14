@@ -27,10 +27,7 @@ public class AppService {
 			throw new Exception("User Already Exists");
 		}
 		signUpModel.setPassword(passwordEncoder.encode(signUpModel.getPassword()));
-		UserEntity entity = repository.save(mapToEntity(signUpModel));
-		
- 
-        
+		UserEntity entity = repository.save(mapToEntity(signUpModel));   
 		return mapEntityToDTO(entity);
 	}
 	

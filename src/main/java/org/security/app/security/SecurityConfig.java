@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 									   .antMatchers("/signup").permitAll()
 								       .antMatchers("/login").permitAll()
 								       .anyRequest().authenticated()
-								       .and().addFilter(getAuthenticationFilter());
+								       .and().addFilter(getAuthenticationFilter())
+								       .addFilter(getAuthorizationFilter());
 		http.csrf().disable();
         http.headers().frameOptions().disable();
 	}
@@ -46,6 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//authenticationFilter.setAuthenticationManager(authenticationManager()); 
 		authenticationFilter.setFilterProcessesUrl("/login");
 		return authenticationFilter;
+	}
+	
+	private AuthorizationFilter getAuthorizationFilter() throws Exception
+	{
+		AuthorizationFilter authorizationFilter = new AuthorizationFilter(authenticationManager());
+		//authenticationFilter.setAuthenticationManager(authenticationManager()); 
+		return authorizationFilter;
 	}
 	
     @Override

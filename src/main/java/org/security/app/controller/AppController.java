@@ -24,8 +24,6 @@ public class AppController {
 	@PostMapping("/signup")
 	public ResponseEntity<AuthenticationResponseModel> signup(@RequestBody SignUpRequestModel signUpModel) throws Exception {
 		 AuthenticationResponseModel responseModel = service.saveUser(signUpModel);
-		// ResponseEntity<AuthenticationResponseModel> responseEntity=new ResponseEntity<AuthenticationResponseModel>(HttpStatus.OK);
-		// responseEntity.getHeaders().set("token", JWTUtil.generateToken(responseModel.getEmailId()));
 		 HttpHeaders headers=new HttpHeaders();
 		 headers.add("token", JWTUtil.generateToken(responseModel.getEmail()));
 		 return ResponseEntity.ok().headers(headers).body(responseModel);	 
@@ -33,8 +31,8 @@ public class AppController {
 	
 
 	
-	@GetMapping("/users")
-	public String getUsers() {
-		return "User Returned";
+	@GetMapping("/dashboard")
+	public String dashboard() {
+		return "Your dahsboard doesnt have any stories to show";
 	}
 }
